@@ -14,6 +14,8 @@ DPI = int(os.environ['DPI'])
 #
 bot = TelegramClient('bot', ID, HASH).start(bot_token=TOKEN)
 print('Bot started...')
+
+
 #
 @bot.on(events.NewMessage())
 async def my_handler(event):
@@ -102,7 +104,11 @@ async def my_handler(event):
     blank_img.paste(scaled_img, (xx, yy))
     blank_img.paste(scaled_img2, (xx2, yy2))
     # Save the final image
-    blank_img.save(buffer, format="PNG", optimize=True, quality=95)
+    blank_img.save(buffer,
+                   format="PNG",
+                   optimize=True,
+                   quality=95,
+                   resolution=(DPI, DPI))
     #
     buffer.seek(0)
     buffer.name = send_name
