@@ -31,7 +31,9 @@ async def my_handler(event):
   if mime == "application/pdf":
     save_name = "file" + str(uuid4()) + ".pdf"
     send_name = "converted.png"
+    response = await event.respond("Downloading PDF...")
     await event.download_media(save_name)
+    await response.edit("Converting...")
     #
     zoom_x = 6.0
     zoom_y = 6.0
@@ -110,10 +112,13 @@ async def my_handler(event):
                    quality=95,
                    resolution=(DPI, DPI))
     #
+    await response.edit("Done !")
+    await response.edit("Uploading...")
     buffer.seek(0)
     buffer.name = send_name
     await bot.send_file(id, buffer, force_document=True)
     os.remove(save_name)
+    await response.delete()
 
 
 bot.run_until_disconnected()
