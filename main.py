@@ -2,7 +2,7 @@ from telethon import TelegramClient, events
 import fitz, sys
 from io import BytesIO
 from uuid import uuid4
-import os
+       import os
 from PIL import Image, ImageDraw
 #
 buffer = BytesIO()
